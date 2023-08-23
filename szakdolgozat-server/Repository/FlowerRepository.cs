@@ -3,7 +3,7 @@ using szakdolgozat_server.Models;
 
 namespace szakdolgozat_server.Repository
 {
-    public class FlowerRepository
+    public class FlowerRepository : IFlowerRepository
     {
         DataContext db;
 
@@ -34,8 +34,8 @@ namespace szakdolgozat_server.Repository
         public void Update(Flower flower)
         {
             var flowerToUpdate = GetByID(flower.Flower_ID);
-            flowerToUpdate.Image =flower.Image;
-            flowerToUpdate.IsOverrided =flower.IsOverrided;
+            flowerToUpdate.Image = flower.Image;
+            flowerToUpdate.IsOverrided = flower.IsOverrided;
             db.SaveChanges();
         }
     }

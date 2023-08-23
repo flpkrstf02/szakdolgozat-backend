@@ -3,7 +3,7 @@ using szakdolgozat_server.Models;
 
 namespace szakdolgozat_server.Repository
 {
-    public class CroppedImageRepository
+    public class CroppedImageRepository : ICroppedImageRepository
     {
         DataContext db;
 
