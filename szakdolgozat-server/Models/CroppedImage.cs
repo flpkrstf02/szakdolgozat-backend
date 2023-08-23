@@ -17,7 +17,7 @@ namespace szakdolgozat_server.Models
         [Required]
         public string Image { get; set; }
         [Required]
-        public Stage Stage { get; set; }
+        public Stage Prediction { get; set; }
 
         [NotMapped]
         [JsonIgnore]
