@@ -11,7 +11,7 @@ namespace szakdolgozat_server.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
         [Required]
         public bool IsOverrided { get; set; }
 

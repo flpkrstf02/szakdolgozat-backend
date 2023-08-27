@@ -21,13 +21,15 @@ namespace szakdolgozat_server.Controllers
         [HttpGet]
         public List<FlowerDto> GetFlowers()
         {
-            var flowers = flowerLogic.GetAll();
+            var flowers = flowerLogic.GetAll().ToList();
             var croppedImages = croppedImageLogic.GetAll();
             var flowersList = new List<FlowerDto>();
 
             foreach (var flower in flowers)
             {
-                flowersList.Add(new FlowerDto(flower, croppedImages.Where(c => c.FlowerId == flower.Id).ToList()));
+                var croppedImage = croppedImages.Where(c => c.FlowerId == flower.Id).ToList();
+                var flowerDto = new FlowerDto(flower, croppedImage);
+                flowersList.Add(flowerDto);
             }
 
             return flowersList;
