@@ -22,7 +22,7 @@ namespace szakdolgozat_server.Controllers
         public List<FlowerDto> GetFlowers()
         {
             var flowers = flowerLogic.GetAll().ToList();
-            var croppedImages = croppedImageLogic.GetAll();
+            var croppedImages = croppedImageLogic.GetAll().ToList();
             var flowersList = new List<FlowerDto>();
 
             foreach (var flower in flowers)
