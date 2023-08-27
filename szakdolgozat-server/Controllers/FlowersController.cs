@@ -27,7 +27,7 @@ namespace szakdolgozat_server.Controllers
 
             foreach (var flower in flowers)
             {
-                flowersList.Add(new FlowerDto(flower, croppedImages.Where(c => c.Flower_ID == flower.Flower_ID).ToList()));
+                flowersList.Add(new FlowerDto(flower, croppedImages.Where(c => c.FlowerId == flower.Id).ToList()));
             }
 
             return flowersList;
@@ -39,7 +39,7 @@ namespace szakdolgozat_server.Controllers
             var flower = flowerLogic.GetByID(id);
             var croppedImages = croppedImageLogic.GetAll();
 
-            return new FlowerDto(flower, croppedImages.Where(c => c.Flower_ID == flower.Flower_ID).ToList());
+            return new FlowerDto(flower, croppedImages.Where(c => c.FlowerId == flower.Id).ToList());
         }
 
         [HttpPut("{id}")]
@@ -49,7 +49,7 @@ namespace szakdolgozat_server.Controllers
             var input = JsonConvert.DeserializeObject<FlowerDto>(rawText);
             var flowerToUpdate = new Flower()
             {
-                Flower_ID = input.Id,
+                Id = input.Id,
                 Image = input.Image,
                 IsOverrided = input.IsOverrided
             };
@@ -61,10 +61,10 @@ namespace szakdolgozat_server.Controllers
                 {
                     var croppedImageToUpdate = new CroppedImage()
                     {
-                        CroppedImage_ID = croppedImage.Id,
+                        Id = croppedImage.Id,
                         Image = croppedImage.Image,
                         Prediction = croppedImage.Prediction,
-                        Flower_ID = input.Id
+                        FlowerId = input.Id
                     };
                     croppedImageLogic.Update(croppedImageToUpdate);
                 }

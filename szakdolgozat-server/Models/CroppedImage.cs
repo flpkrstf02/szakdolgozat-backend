@@ -13,7 +13,7 @@ namespace szakdolgozat_server.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CroppedImage_ID { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Image { get; set; }
         [Required]
@@ -24,6 +24,6 @@ namespace szakdolgozat_server.Models
         public virtual Flower Flower { get; set; }
 
         [ForeignKey(nameof(Flower))]
-        public int Flower_ID { get; set; }
+        public int FlowerId { get; set; }
     }
 }

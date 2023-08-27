@@ -21,7 +21,7 @@ namespace szakdolgozat_server.Repository
         }
         public Flower GetByID(int id)
         {
-            return db.Flowers.FirstOrDefault(x => x.Flower_ID == id);
+            return db.Flowers.FirstOrDefault(x => x.Id == id);
         }
         public IQueryable<Flower> GetAll()
         {
@@ -35,7 +35,7 @@ namespace szakdolgozat_server.Repository
         }
         public void Update(Flower flower)
         {
-            var flowerToUpdate = GetByID(flower.Flower_ID);
+            var flowerToUpdate = GetByID(flower.Id);
             flowerToUpdate.Image = flower.Image;
             flowerToUpdate.IsOverrided = flower.IsOverrided;
             db.SaveChanges();

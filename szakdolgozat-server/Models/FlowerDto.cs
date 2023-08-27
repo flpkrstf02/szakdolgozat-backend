@@ -9,7 +9,7 @@
 
         public FlowerDto(Flower flower, List<CroppedImage> croppedImages)
         {
-            this.Id = flower.Flower_ID;
+            this.Id = flower.Id;
             this.Image = flower.Image;
             this.IsOverrided = flower.IsOverrided;
             this.CroppedImage = new List<CroppedImageDto>();
@@ -20,7 +20,7 @@
                 {
                     this.CroppedImage.Add(new CroppedImageDto()
                     {
-                        Id = croppedImage.CroppedImage_ID,
+                        Id = croppedImage.Id,
                         Image = croppedImage.Image,
                         Prediction = croppedImage.Prediction
                     });

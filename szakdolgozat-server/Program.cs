@@ -1,9 +1,17 @@
+using szakdolgozat_server.Data;
+using szakdolgozat_server.Logic;
+using szakdolgozat_server.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-
+builder.Services.AddTransient<IFlowerLogic, FlowerLogic>();
+builder.Services.AddTransient<ICroppedImageLogic, CroppedImageLogic>();
+builder.Services.AddTransient<IFlowerRepository, FlowerRepository>();
+builder.Services.AddTransient<ICroppedImageRepository, CroppedImageRepository>();
+builder.Services.AddSingleton<DataContext, DataContext>();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

@@ -9,7 +9,7 @@ namespace szakdolgozat_server.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Flower_ID { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Image { get; set; }
         [Required]

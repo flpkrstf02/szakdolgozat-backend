@@ -19,7 +19,7 @@ namespace szakdolgozat_server.Repository
         }
         public CroppedImage GetByID(int id)
         {
-            return db.CroppedImages.FirstOrDefault(x => x.CroppedImage_ID == id);
+            return db.CroppedImages.FirstOrDefault(x => x.Id == id);
         }
         public IQueryable<CroppedImage> GetAll()
         {
@@ -33,10 +33,10 @@ namespace szakdolgozat_server.Repository
         }
         public void Update(CroppedImage croppedImage)
         {
-            var croppedImageToUpdate = GetByID(croppedImage.CroppedImage_ID);
+            var croppedImageToUpdate = GetByID(croppedImage.Id);
             croppedImageToUpdate.Image = croppedImage.Image;
             croppedImageToUpdate.Prediction = croppedImage.Prediction;
-            croppedImageToUpdate.Flower_ID = croppedImage.Flower_ID;
+            croppedImageToUpdate.FlowerId = croppedImage.FlowerId;
             db.SaveChanges();
         }
     }
