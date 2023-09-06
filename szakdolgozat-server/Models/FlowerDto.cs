@@ -7,6 +7,11 @@
         public bool IsOverrided { get; set; }
         public List<CroppedImageDto> CroppedImage { get; set; }
 
+        public FlowerDto()
+        {
+
+        }
+
         public FlowerDto(Flower flower, List<CroppedImage> croppedImages)
         {
             this.Id = flower.Id;

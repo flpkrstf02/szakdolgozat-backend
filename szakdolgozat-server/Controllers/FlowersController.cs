@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using szakdolgozat_server.Logic;
 using szakdolgozat_server.Models;
@@ -7,6 +8,7 @@ namespace szakdolgozat_server.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class FlowersController : ControllerBase
     {
         IFlowerLogic flowerLogic;

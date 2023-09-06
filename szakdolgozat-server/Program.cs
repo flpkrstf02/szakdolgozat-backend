@@ -16,6 +16,13 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", options => options.WithOrigins("http://localhost:8100").AllowAnyMethod().
+     AllowAnyHeader());
+});
+
+
 
 var app = builder.Build();
 
@@ -38,13 +45,14 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseCors("AllowOrigin");
+
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
-
 
 app.UseStaticFiles();
 
