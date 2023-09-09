@@ -9,5 +9,6 @@ namespace szakdolgozat_server.Repository
         IQueryable<Flower> GetAll();
         Flower GetByID(int id);
         void Update(Flower flower);
+        Image_With_CroppedImage GetCroppedImagesFromPicture(string picture);
     }
 }

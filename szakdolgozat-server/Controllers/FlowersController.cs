@@ -54,7 +54,6 @@ namespace szakdolgozat_server.Controllers
             var flowerToUpdate = new Flower()
             {
                 Id = input.Id,
-                Image = input.Image,
                 IsOverrided = input.IsOverrided
             };
             flowerLogic.Update(flowerToUpdate);
@@ -66,7 +65,6 @@ namespace szakdolgozat_server.Controllers
                     var croppedImageToUpdate = new CroppedImage()
                     {
                         Id = croppedImage.Id,
-                        Image = croppedImage.Image,
                         Prediction = croppedImage.Prediction,
                         FlowerId = input.Id
                     };
@@ -80,8 +78,13 @@ namespace szakdolgozat_server.Controllers
         {
             string rawText = picture.GetRawText();
             var input = JsonConvert.DeserializeObject<string>(rawText);
+            var prediction = flowerLogic.GetCroppedImagesFromPicture(input);
+
+            flowerLogic.Add(new Flower() { Image = prediction.Image, IsOverrided = false });
 
 
+
+            ;
         }
     }
 }

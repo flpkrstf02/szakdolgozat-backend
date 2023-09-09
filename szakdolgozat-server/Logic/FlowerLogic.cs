@@ -32,5 +32,10 @@ namespace szakdolgozat_server.Logic
         {
             flowerRepository.Delete(id);
         }
+
+        public Image_With_CroppedImage GetCroppedImagesFromPicture(string picture)
+        {
+            return flowerRepository.GetCroppedImagesFromPicture(picture);
+        }
     }
 }

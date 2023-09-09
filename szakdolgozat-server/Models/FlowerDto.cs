@@ -3,7 +3,7 @@
     public class FlowerDto
     {
         public int Id { get; set; }
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
         public bool IsOverrided { get; set; }
         public List<CroppedImageDto> CroppedImage { get; set; }
 
@@ -15,7 +15,7 @@
         public FlowerDto(Flower flower, List<CroppedImage> croppedImages)
         {
             this.Id = flower.Id;
-            this.Image = flower.Image;
+            this.Image = ConvertByteArrayToBase64String(flower.Image);
             this.IsOverrided = flower.IsOverrided;
             this.CroppedImage = new List<CroppedImageDto>();
 
@@ -26,11 +26,16 @@
                     this.CroppedImage.Add(new CroppedImageDto()
                     {
                         Id = croppedImage.Id,
-                        Image = croppedImage.Image,
+                        Image = ConvertByteArrayToBase64String(croppedImage.Image),
                         Prediction = croppedImage.Prediction
                     });
                 }
             }
+        }
+
+        public string ConvertByteArrayToBase64String(byte[] byteArray)
+        {
+            return Convert.ToBase64String(byteArray, 0, byteArray.Length, Base64FormattingOptions.None);
         }
     }
 }

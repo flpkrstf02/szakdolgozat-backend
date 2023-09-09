@@ -34,7 +34,6 @@ namespace szakdolgozat_server.Repository
         public void Update(CroppedImage croppedImage)
         {
             var croppedImageToUpdate = GetByID(croppedImage.Id);
-            croppedImageToUpdate.Image = croppedImage.Image;
             croppedImageToUpdate.Prediction = croppedImage.Prediction;
             croppedImageToUpdate.FlowerId = croppedImage.FlowerId;
             db.SaveChanges();
