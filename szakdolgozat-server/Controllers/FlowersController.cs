@@ -54,7 +54,7 @@ namespace szakdolgozat_server.Controllers
             var flowerToUpdate = new Flower()
             {
                 Id = input.Id,
-                IsOverrided = input.IsOverrided
+                IsOverrided = true
             };
             flowerLogic.Update(flowerToUpdate);
 
@@ -82,9 +82,22 @@ namespace szakdolgozat_server.Controllers
 
             flowerLogic.Add(new Flower() { Image = prediction.Image, IsOverrided = false });
 
+            var lastFlower = flowerLogic.GetAll().LastOrDefault();
 
+            foreach (var croppedImage in prediction.CroppedImages)
+            {
+                //Stagedetektor meghívása
 
-            ;
+                croppedImageLogic.Add(new CroppedImage() { Image = croppedImage, FlowerId = lastFlower.Id, Prediction = "stage2" });
+            }
+        }
+
+        [HttpDelete]
+        public void Delete([FromBody] dynamic id)
+        {
+            string rawText = id.GetRawText();
+            var input = JsonConvert.DeserializeObject<int>(rawText);
+            flowerLogic.Delete(input);
         }
     }
 }

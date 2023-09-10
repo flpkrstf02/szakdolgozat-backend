@@ -68,6 +68,7 @@ namespace szakdolgozat_server.Repository
 
             Image_With_CroppedImage croppedImage = new Image_With_CroppedImage();
             croppedImage.Image = resizedData;
+            croppedImage.CroppedImages = new List<byte[]>();
 
             foreach (var boundingBox in prediction.Predictions)
             {
