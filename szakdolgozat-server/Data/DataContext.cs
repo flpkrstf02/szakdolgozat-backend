@@ -7,12 +7,8 @@ namespace szakdolgozat_server.Data
     {
         public virtual DbSet<Flower> Flowers { get; set; }
         public virtual DbSet<CroppedImage> CroppedImages { get; set; }
+        public virtual DbSet<CaptureFrequency> CaptureFrequencies { get; set; }
         protected readonly IConfiguration Configuration;
-
-        //public DataContext(DbContextOptions<DataContext> option):base(option)
-        //{
-
-        //}
 
         public DataContext(IConfiguration configuration)
         {
@@ -21,7 +17,6 @@ namespace szakdolgozat_server.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            // connect to sql server with connection string from app settings
             options.UseSqlServer(Configuration.GetConnectionString("WebApiDatabase"));
         }
 
@@ -29,6 +24,7 @@ namespace szakdolgozat_server.Data
         {
             modelBuilder.Entity<Flower>().ToTable("Flower");
             modelBuilder.Entity<CroppedImage>().ToTable("CroppedImage");
+            modelBuilder.Entity<CaptureFrequency>().ToTable("CaptureFrequency");
         }
     }
 }
