@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using szakdolgozat_server.Data;
 using szakdolgozat_server.Logic;
 using szakdolgozat_server.Repository;
@@ -18,11 +19,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(c =>
 {
-    c.AddPolicy("AllowOrigin", options => options.WithOrigins("http://localhost:8100").AllowAnyMethod().
+    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().
      AllowAnyHeader());
 });
-
-
 
 var app = builder.Build();
 
