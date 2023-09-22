@@ -10,9 +10,12 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddTransient<IFlowerLogic, FlowerLogic>();
 builder.Services.AddTransient<ICroppedImageLogic, CroppedImageLogic>();
+builder.Services.AddTransient<ICaptureFrequencyLogic, CaptureFrequencyLogic>();
+
 builder.Services.AddTransient<IFlowerRepository, FlowerRepository>();
 builder.Services.AddTransient<ICroppedImageRepository, CroppedImageRepository>();
-builder.Services.AddSingleton<DataContext, DataContext>();
+builder.Services.AddTransient<ICaptureFrequencyRepository, CaptureFrequencyRepository>();
+builder.Services.AddTransient<DataContext, DataContext>();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
