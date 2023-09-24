@@ -30,7 +30,7 @@ namespace szakdolgozat_server.Controllers
         {
             int hourWhenCapture = frequencyLogic.GetAll().ToList().FirstOrDefault().Hour;
             var now = DateTime.Now;
-            if (hourWhenCapture == now.Hour)
+            if (hourWhenCapture == now.Hour && (now.Minute >= 0 || now.Minute <= 2))
             {
                 return true;
             }
