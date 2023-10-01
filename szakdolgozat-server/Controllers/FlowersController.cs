@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.ML.OnnxRuntime;
 using Newtonsoft.Json;
 using szakdolgozat_server.Logic;
 using szakdolgozat_server.Models;
@@ -13,11 +14,13 @@ namespace szakdolgozat_server.Controllers
     {
         IFlowerLogic flowerLogic;
         ICroppedImageLogic croppedImageLogic;
+        private InferenceSession _session;
 
-        public FlowersController(IFlowerLogic flowerLogic, ICroppedImageLogic croppedImageLogic)
+        public FlowersController(IFlowerLogic flowerLogic, ICroppedImageLogic croppedImageLogic, InferenceSession session)
         {
             this.flowerLogic = flowerLogic;
             this.croppedImageLogic = croppedImageLogic;
+            this._session = session;
         }
 
         [HttpGet]
@@ -86,9 +89,9 @@ namespace szakdolgozat_server.Controllers
 
             foreach (var croppedImage in prediction.CroppedImages)
             {
-                //Stagedetektor meghívása
+                //string predictedStage = croppedImageLogic.StageDetector(croppedImage);
 
-                croppedImageLogic.Add(new CroppedImage() { Image = croppedImage, FlowerId = lastFlower.Id, Prediction = "stage2" });
+                croppedImageLogic.Add(new CroppedImage() { Image = croppedImage, FlowerId = lastFlower.Id, Prediction = "stage1" });
             }
         }
 
@@ -99,5 +102,33 @@ namespace szakdolgozat_server.Controllers
             var input = JsonConvert.DeserializeObject<int>(rawText);
             flowerLogic.Delete(input);
         }
+
+        [HttpPost]
+        [Route("/predict")]
+        public void PostPrediction([FromBody] dynamic picture)
+        {
+            string rawText = picture.GetRawText();
+            var input = JsonConvert.DeserializeObject<byte[]>(rawText);
+            //string predictedStage = croppedImageLogic.StageDetector(input);
+
+            var modelData = new ModelData(input);
+
+            var result = _session.Run(new List<NamedOnnxValue>
+            {
+                NamedOnnxValue.CreateFromTensor("conv2d_input", modelData.AsTensor())
+            });
+            var score = result.FirstOrDefault().AsTensor<float>().ToList();
+            int max = 0;
+            for (int i = 0; i < score.Count(); i++)
+            {
+                if (score[i] > score[max])
+                {
+                    max = i;
+                }0
+            }
+
+            result.Dispose();
+        }
+
     }
 }

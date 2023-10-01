@@ -6,6 +6,7 @@ namespace szakdolgozat_server.Repository
     public class CroppedImageRepository : ICroppedImageRepository
     {
         DataContext db;
+        static string ONNX_MODEL_PATH = "automl-model.onnx";
 
         public CroppedImageRepository(DataContext db)
         {

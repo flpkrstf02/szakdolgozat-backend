@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.ML.OnnxRuntime;
 using szakdolgozat_server.Data;
 using szakdolgozat_server.Logic;
 using szakdolgozat_server.Repository;
@@ -16,6 +17,7 @@ builder.Services.AddTransient<IFlowerRepository, FlowerRepository>();
 builder.Services.AddTransient<ICroppedImageRepository, CroppedImageRepository>();
 builder.Services.AddTransient<ICaptureFrequencyRepository, CaptureFrequencyRepository>();
 builder.Services.AddTransient<DataContext, DataContext>();
+builder.Services.AddSingleton<InferenceSession>(new InferenceSession("stagedetector.onnx"));
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
