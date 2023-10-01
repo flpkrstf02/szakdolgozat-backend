@@ -89,9 +89,26 @@ namespace szakdolgozat_server.Controllers
 
             foreach (var croppedImage in prediction.CroppedImages)
             {
-                //string predictedStage = croppedImageLogic.StageDetector(croppedImage);
+                var modelData = new ModelData(croppedImage);
 
-                croppedImageLogic.Add(new CroppedImage() { Image = croppedImage, FlowerId = lastFlower.Id, Prediction = "stage1" });
+                var result = _session.Run(new List<NamedOnnxValue>
+                {
+                    NamedOnnxValue.CreateFromTensor("conv2d_input", modelData.AsTensor())
+                });
+                var score = result.FirstOrDefault().AsTensor<float>().ToList();
+                int max = 0;
+                for (int i = 0; i < score.Count(); i++)
+                {
+                    if (score[i] > score[max])
+                    {
+                        max = i;
+                    }
+                }
+                result.Dispose();
+
+                string stage = "stage" + max + 1;
+
+                croppedImageLogic.Add(new CroppedImage() { Image = croppedImage, FlowerId = lastFlower.Id, Prediction = stage });
             }
         }
 
@@ -102,33 +119,5 @@ namespace szakdolgozat_server.Controllers
             var input = JsonConvert.DeserializeObject<int>(rawText);
             flowerLogic.Delete(input);
         }
-
-        [HttpPost]
-        [Route("/predict")]
-        public void PostPrediction([FromBody] dynamic picture)
-        {
-            string rawText = picture.GetRawText();
-            var input = JsonConvert.DeserializeObject<byte[]>(rawText);
-            //string predictedStage = croppedImageLogic.StageDetector(input);
-
-            var modelData = new ModelData(input);
-
-            var result = _session.Run(new List<NamedOnnxValue>
-            {
-                NamedOnnxValue.CreateFromTensor("conv2d_input", modelData.AsTensor())
-            });
-            var score = result.FirstOrDefault().AsTensor<float>().ToList();
-            int max = 0;
-            for (int i = 0; i < score.Count(); i++)
-            {
-                if (score[i] > score[max])
-                {
-                    max = i;
-                }0
-            }
-
-            result.Dispose();
-        }
-
     }
 }
