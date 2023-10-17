@@ -12,14 +12,16 @@ namespace szakdolgozat_server.Controllers
     [EnableCors("AllowOrigin")]
     public class FlowersController : ControllerBase
     {
-        IFlowerLogic flowerLogic;
-        ICroppedImageLogic croppedImageLogic;
+        private IFlowerLogic flowerLogic;
+        private ICroppedImageLogic croppedImageLogic;
+        private ITrainingHistoryLogic trainingHistoryLogic;
         private InferenceSession _session;
 
-        public FlowersController(IFlowerLogic flowerLogic, ICroppedImageLogic croppedImageLogic, InferenceSession session)
+        public FlowersController(IFlowerLogic flowerLogic, ICroppedImageLogic croppedImageLogic, ITrainingHistoryLogic trainingHistoryLogic, InferenceSession session)
         {
             this.flowerLogic = flowerLogic;
             this.croppedImageLogic = croppedImageLogic;
+            this.trainingHistoryLogic = trainingHistoryLogic;
             this._session = session;
         }
 
@@ -106,10 +108,11 @@ namespace szakdolgozat_server.Controllers
                 }
                 result.Dispose();
 
-                string stage = "stage" + max + 1;
+                string stage = "stage" + (max + 1);
 
                 croppedImageLogic.Add(new CroppedImage() { Image = croppedImage, FlowerId = lastFlower.Id, Prediction = stage });
             }
+
         }
 
         [HttpDelete]

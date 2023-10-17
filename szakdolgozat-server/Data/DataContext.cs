@@ -8,6 +8,8 @@ namespace szakdolgozat_server.Data
         public virtual DbSet<Flower> Flowers { get; set; }
         public virtual DbSet<CroppedImage> CroppedImages { get; set; }
         public virtual DbSet<CaptureFrequency> CaptureFrequencies { get; set; }
+        public virtual DbSet<TrainingHistory> TrainingHistories { get; set; }
+
 
         protected readonly IConfiguration Configuration;
 
@@ -26,6 +28,7 @@ namespace szakdolgozat_server.Data
             modelBuilder.Entity<CaptureFrequency>().ToTable("CaptureFrequency");
             modelBuilder.Entity<Flower>().ToTable("Flower");
             modelBuilder.Entity<CroppedImage>().ToTable("CroppedImage");
+            modelBuilder.Entity<TrainingHistory>().ToTable("TrainingHistory");
         }
     }
 }

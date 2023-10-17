@@ -12,10 +12,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddTransient<IFlowerLogic, FlowerLogic>();
 builder.Services.AddTransient<ICroppedImageLogic, CroppedImageLogic>();
 builder.Services.AddTransient<ICaptureFrequencyLogic, CaptureFrequencyLogic>();
+builder.Services.AddTransient<ITrainingHistoryLogic, TrainingHistoryLogic>();
 
 builder.Services.AddTransient<IFlowerRepository, FlowerRepository>();
 builder.Services.AddTransient<ICroppedImageRepository, CroppedImageRepository>();
 builder.Services.AddTransient<ICaptureFrequencyRepository, CaptureFrequencyRepository>();
+builder.Services.AddTransient<ITrainingHistoryRepository, TrainingHistoryRepository>();
+
 builder.Services.AddTransient<DataContext, DataContext>();
 builder.Services.AddSingleton<InferenceSession>(new InferenceSession("stagedetector.onnx"));
 builder.Services.AddControllers();
