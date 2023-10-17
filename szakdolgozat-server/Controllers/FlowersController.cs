@@ -17,6 +17,8 @@ namespace szakdolgozat_server.Controllers
         private ITrainingHistoryLogic trainingHistoryLogic;
         private InferenceSession _session;
 
+        private readonly string PATH_TO_TRAINING_FOLDER = "";
+
         public FlowersController(IFlowerLogic flowerLogic, ICroppedImageLogic croppedImageLogic, ITrainingHistoryLogic trainingHistoryLogic, InferenceSession session)
         {
             this.flowerLogic = flowerLogic;
@@ -111,6 +113,41 @@ namespace szakdolgozat_server.Controllers
                 string stage = "stage" + (max + 1);
 
                 croppedImageLogic.Add(new CroppedImage() { Image = croppedImage, FlowerId = lastFlower.Id, Prediction = stage });
+            }
+
+            var trainingHistories = trainingHistoryLogic.GetAll().ToList();
+            if (trainingHistories.Count() > 0)
+            {
+                var numberOfImageAtLastTraining = trainingHistories.LastOrDefault().NumberOfImageAtTraining;
+                var croppedImages = croppedImageLogic.GetAll().ToList();
+
+                if ((numberOfImageAtLastTraining + 100) < croppedImages.Count())
+                {
+                    string TextFileName = Path.Combine(PATH_TO_TRAINING_FOLDER,"trainingImages.txt");
+
+                    if (System.IO.File.Exists(TextFileName))
+                    {
+                        System.IO.File.Delete(TextFileName);
+                    }
+
+                    System.IO.File.Create(TextFileName);
+
+                    using (StreamWriter outputFile = new StreamWriter(TextFileName))
+                    {
+                        foreach (var croppedImage in croppedImages)
+                        {
+                            outputFile.WriteLine(croppedImage.Image);
+                        }
+                    }                   
+
+                    //Training
+
+                    trainingHistoryLogic.Add(new TrainingHistory()
+                    {
+                        NumberOfImageAtTraining = croppedImages.Count(),
+                        Date = DateTime.Now.ToShortDateString()
+                    });
+                }
             }
 
         }

@@ -28,16 +28,21 @@ namespace szakdolgozat_server.Controllers
         [Route("capture")]
         public bool GetCaptureLicense()
         {
-            int hourWhenCapture = frequencyLogic.GetAll().ToList().FirstOrDefault().Hour;
-            var now = DateTime.Now;
-            if (hourWhenCapture == now.Hour && (now.Minute >= 0 || now.Minute <= 2))
+            var captureFrequencies = frequencyLogic.GetAll().ToList();
+            if (captureFrequencies.Count() > 0)
             {
-                return true;
+                int hourWhenCapture = captureFrequencies.FirstOrDefault().Hour;
+                var now = DateTime.Now;
+                if (hourWhenCapture == now.Hour && (now.Minute >= 0 || now.Minute <= 2))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         [HttpPut("{id}")]

@@ -35,6 +35,7 @@ namespace szakdolgozat_server.Repository
         {
             var trainingHistoryToUpdate = GetByID(trainingHistory.Id);
             trainingHistoryToUpdate.NumberOfImageAtTraining = trainingHistory.NumberOfImageAtTraining;
+            trainingHistoryToUpdate.Date = trainingHistory.Date;
             db.SaveChanges();
         }
     }

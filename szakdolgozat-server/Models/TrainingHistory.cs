@@ -11,5 +11,7 @@ namespace szakdolgozat_server.Models
         public int Id { get; set; }
         [Required]
         public int NumberOfImageAtTraining { get; set; }
+        [Required]
+        public string Date { get; set; }
     }
 }
