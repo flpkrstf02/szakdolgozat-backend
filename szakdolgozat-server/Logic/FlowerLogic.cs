@@ -14,28 +14,70 @@ namespace szakdolgozat_server.Logic
 
         public void Add(Flower flower)
         {
-            flowerRepository.Add(flower);
+            try
+            {
+                flowerRepository.Add(flower);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public Flower GetByID(int id)
         {
-            return flowerRepository.GetByID(id);
+            try
+            {
+                return flowerRepository.GetByID(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public IEnumerable<Flower> GetAll()
         {
-            return flowerRepository.GetAll();
+            try
+            {
+                return flowerRepository.GetAll();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public void Update(Flower flower)
         {
-            flowerRepository.Update(flower);
+            try
+            {
+                flowerRepository.Update(flower);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public void Delete(int id)
         {
-            flowerRepository.Delete(id);
+            try
+            {
+                flowerRepository.Delete(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public Image_With_CroppedImage GetCroppedImagesFromPicture(string picture)
         {
-            return flowerRepository.GetCroppedImagesFromPicture(picture);
+            try
+            {
+                return flowerRepository.GetCroppedImagesFromPicture(picture);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

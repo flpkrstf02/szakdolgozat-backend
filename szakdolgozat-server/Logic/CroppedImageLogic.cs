@@ -14,23 +14,58 @@ namespace szakdolgozat_server.Logic
 
         public void Add(CroppedImage croppedImage)
         {
-            croppedImageRepository.Add(croppedImage);
+            try
+            {
+                croppedImageRepository.Add(croppedImage);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public CroppedImage GetByID(int id)
         {
-            return croppedImageRepository.GetByID(id);
+            try
+            {
+                return croppedImageRepository.GetByID(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public IEnumerable<CroppedImage> GetAll()
         {
-            return croppedImageRepository.GetAll();
+            try
+            {
+                return croppedImageRepository.GetAll();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public void Update(CroppedImage croppedImage)
         {
-            croppedImageRepository.Update(croppedImage);
+            try
+            {
+                croppedImageRepository.Update(croppedImage);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public void Delete(int id)
         {
-            croppedImageRepository.Delete(id);
+            try
+            {
+                croppedImageRepository.Delete(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

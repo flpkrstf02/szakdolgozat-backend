@@ -14,23 +14,58 @@ namespace szakdolgozat_server.Logic
 
         public void Add(CaptureFrequency captureFrequency)
         {
-            captureFrequencyRepository.Add(captureFrequency);
+            try
+            {
+                captureFrequencyRepository.Add(captureFrequency);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public CaptureFrequency GetByID(int id)
         {
-            return captureFrequencyRepository.GetByID(id);
+            try
+            {
+                return captureFrequencyRepository.GetByID(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public IEnumerable<CaptureFrequency> GetAll()
         {
-            return captureFrequencyRepository.GetAll();
+            try
+            {
+                return captureFrequencyRepository.GetAll();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public void Update(CaptureFrequency captureFrequency)
         {
-            captureFrequencyRepository.Update(captureFrequency);
+            try
+            {
+                captureFrequencyRepository.Update(captureFrequency);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public void Delete(int id)
         {
-            captureFrequencyRepository.Delete(id);
+            try
+            {
+                captureFrequencyRepository.Delete(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

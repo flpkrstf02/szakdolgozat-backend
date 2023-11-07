@@ -14,23 +14,58 @@ namespace szakdolgozat_server.Logic
 
         public void Add(TrainingHistory trainingHistory)
         {
-            trainingHistoryRepository.Add(trainingHistory);
+            try
+            {
+                trainingHistoryRepository.Add(trainingHistory);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public TrainingHistory GetByID(int id)
         {
-            return trainingHistoryRepository.GetByID(id);
+            try
+            {
+                return trainingHistoryRepository.GetByID(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public IEnumerable<TrainingHistory> GetAll()
         {
-            return trainingHistoryRepository.GetAll();
+            try
+            {
+                return trainingHistoryRepository.GetAll();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public void Update(TrainingHistory trainingHistory)
         {
-            trainingHistoryRepository.Update(trainingHistory);
+            try
+            {
+                trainingHistoryRepository.Update(trainingHistory);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         public void Delete(int id)
         {
-            trainingHistoryRepository.Delete(id);
+            try
+            {
+                trainingHistoryRepository.Delete(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
