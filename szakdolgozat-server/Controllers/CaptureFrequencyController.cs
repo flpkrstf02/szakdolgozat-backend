@@ -46,7 +46,7 @@ namespace szakdolgozat_server.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put([FromBody] dynamic frequency)
+        public void UpdateCaptureFrequency([FromBody] dynamic frequency)
         {
             string rawText = frequency.GetRawText();
             var input = JsonConvert.DeserializeObject<CaptureFrequency>(rawText);

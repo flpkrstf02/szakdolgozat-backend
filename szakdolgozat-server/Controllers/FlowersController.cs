@@ -17,7 +17,7 @@ namespace szakdolgozat_server.Controllers
         private ITrainingHistoryLogic trainingHistoryLogic;
         private InferenceSession _session;
 
-        private readonly string PATH_TO_TRAINING_FOLDER = "";
+        private readonly string PATH_TO_TRAINING_FOLDER = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TRAIN_FOLDER");
 
         public FlowersController(IFlowerLogic flowerLogic, ICroppedImageLogic croppedImageLogic, ITrainingHistoryLogic trainingHistoryLogic, InferenceSession session)
         {
@@ -54,7 +54,7 @@ namespace szakdolgozat_server.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put([FromBody] dynamic flower)
+        public void UpdateFlower([FromBody] dynamic flower)
         {
             string rawText = flower.GetRawText();
             var input = JsonConvert.DeserializeObject<FlowerDto>(rawText);
@@ -81,7 +81,7 @@ namespace szakdolgozat_server.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] dynamic picture)
+        public void PostFlower([FromBody] dynamic picture)
         {
             string rawText = picture.GetRawText();
             var input = JsonConvert.DeserializeObject<string>(rawText);
@@ -123,7 +123,7 @@ namespace szakdolgozat_server.Controllers
 
                 if ((numberOfImageAtLastTraining + 100) < croppedImages.Count())
                 {
-                    string TextFileName = Path.Combine(PATH_TO_TRAINING_FOLDER,"trainingImages.txt");
+                    string TextFileName = Path.Combine(PATH_TO_TRAINING_FOLDER, "trainingImages.txt");
 
                     if (System.IO.File.Exists(TextFileName))
                     {
@@ -138,7 +138,7 @@ namespace szakdolgozat_server.Controllers
                         {
                             outputFile.WriteLine(croppedImage.Image);
                         }
-                    }                   
+                    }
 
                     //Training
 
@@ -153,7 +153,7 @@ namespace szakdolgozat_server.Controllers
         }
 
         [HttpDelete]
-        public void Delete([FromBody] dynamic id)
+        public void DeleteFlower([FromBody] dynamic id)
         {
             string rawText = id.GetRawText();
             var input = JsonConvert.DeserializeObject<int>(rawText);
