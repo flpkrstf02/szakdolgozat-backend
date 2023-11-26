@@ -4,6 +4,7 @@ using Microsoft.ML.OnnxRuntime;
 using Newtonsoft.Json;
 using szakdolgozat_server.Logic;
 using szakdolgozat_server.Models;
+using System.Diagnostics;
 
 namespace szakdolgozat_server.Controllers
 {
@@ -140,7 +141,20 @@ namespace szakdolgozat_server.Controllers
                         }
                     }
 
-                    //Training
+                    string pythonScriptPath = "D:\\Szakdolgozat\\szakdolgozat-backend\\szakdolgozat-server\\train.py";
+
+                    ProcessStartInfo start = new ProcessStartInfo();
+                    start.FileName = pythonScriptPath;
+                    start.UseShellExecute = false;
+                    start.RedirectStandardOutput = true;
+                    using (Process process = Process.Start(start))
+                    {
+                        using (StreamReader reader = process.StandardOutput)
+                        {
+                            string result = reader.ReadToEnd();
+                            Console.Write(result);
+                        }
+                    }
 
                     trainingHistoryLogic.Add(new TrainingHistory()
                     {
